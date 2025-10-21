@@ -1,4 +1,7 @@
 <?php
+// START OUTPUT BUFFERING - PENTING!
+ob_start();
+
 require_once 'config.php';
 require_once 'includes/db_connect.php';
 require_once 'includes/functions.php';
@@ -12,19 +15,15 @@ if (!in_array($page, $allowedPages)) {
     $page = 'dashboard';
 }
 
-// 1️⃣ Jika halaman bukan “public”, maka lakukan cek login terlebih dahulu
+// 1️⃣ Jika halaman bukan "public", maka lakukan cek login terlebih dahulu
 if (!in_array($page, $publicPages)) {
-    require_once 'includes/auth_check.php'; // DI SINI BOLEH REDIRECT (header) karena belum ada HTML
+    require_once 'includes/auth_check.php'; // Bisa redirect tanpa masalah
 }
 
-// 2️⃣ Setelah login dicek, baru tampilkan header & sidebar
-if (!in_array($page, $publicPages)) {
-    require_once 'includes/header.php';  // Mulai HTML
-    require_once 'includes/sidebar.php';
-    echo '<main class="lg:ml-64 pt-16 min-h-screen flex flex-col"><div class="p-6 flex-1">';
-}
+// 2️⃣ PROSES ROUTING DULU SEBELUM OUTPUT HTML
+// Ini memungkinkan redirect dari page content
+ob_start(); // Buffer untuk content
 
-// 3️⃣ Routing halaman
 switch ($page) {
     case 'login':
         require_once 'pages/auth/login.php';
@@ -48,9 +47,21 @@ switch ($page) {
         echo '<h1>404 - Page Not Found</h1>';
 }
 
-// 4️⃣ Tutup layout untuk halaman yang sudah login
+$pageContent = ob_get_clean(); // Simpan content
+
+// 3️⃣ Sekarang baru tampilkan header & content
 if (!in_array($page, $publicPages)) {
+    require_once 'includes/header.php';
+    require_once 'includes/sidebar.php';
+    echo '<main class="lg:ml-64 pt-16 min-h-screen flex flex-col"><div class="p-6 flex-1">';
+    echo $pageContent; // Output content yang sudah di-buffer
     echo '</div>';
     require_once 'includes/footer.php';
+} else {
+    // Untuk public pages (login), langsung output
+    echo $pageContent;
 }
+
+// END OUTPUT BUFFERING
+ob_end_flush();
 ?>

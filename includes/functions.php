@@ -1,8 +1,16 @@
 <?php
 // Redirect function
 function redirect($url) {
-    header("Location: " . $url);
-    exit();
+    // Pastikan tidak ada output sebelum redirect
+    if (!headers_sent()) {
+        header("Location: " . $url);
+        exit();
+    } else {
+        // Fallback jika header sudah terkirim
+        echo "<script>window.location.href='" . htmlspecialchars($url) . "';</script>";
+        echo "<noscript><meta http-equiv='refresh' content='0;url=" . htmlspecialchars($url) . "'></noscript>";
+        exit();
+    }
 }
 
 // Check if user is logged in
@@ -83,4 +91,3 @@ function getAlert() {
     }
     return null;
 }
-?>
