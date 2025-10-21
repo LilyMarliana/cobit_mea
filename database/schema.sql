@@ -51,13 +51,13 @@ CREATE TABLE IF NOT EXISTS users (
 -- Username: admin
 -- Password: admin123
 INSERT INTO users (username, email, password, first_name, last_name, role_id, is_active) VALUES
-('admin', 'admin@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Admin', 'User', 1, 1);
+('admin', 'admin@example.com', '$2y$10$vuT0T56.1nqR1mzWBGKKH.lILeAA7EvUjyBTnBmaCVwuixoZgfKqy', 'Admin', 'User', 1, 1);
 
 -- Insert sample users for testing
 INSERT INTO users (username, email, password, first_name, last_name, phone, role_id, is_active) VALUES
-('manager1', 'manager@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Manager', 'One', '+62 812-3456-7891', 2, 1),
-('staff1', 'staff@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Staff', 'Member', '+62 812-3456-7892', 3, 1),
-('user1', 'user@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Regular', 'User', '+62 812-3456-7893', 4, 1);
+('manager1', 'manager@example.com', '$2y$10$vuT0T56.1nqR1mzWBGKKH.lILeAA7EvUjyBTnBmaCVwuixoZgfKqy', 'Manager', 'One', '+62 812-3456-7891', 2, 1),
+('staff1', 'staff@example.com', '$2y$10$vuT0T56.1nqR1mzWBGKKH.lILeAA7EvUjyBTnBmaCVwuixoZgfKqy', 'Staff', 'Member', '+62 812-3456-7892', 3, 1),
+('user1', 'user@example.com', '$2y$10$vuT0T56.1nqR1mzWBGKKH.lILeAA7EvUjyBTnBmaCVwuixoZgfKqy', 'Regular', 'User', '+62 812-3456-7893', 4, 1);
 
 -- ==========================================
 -- Table: activity_logs
