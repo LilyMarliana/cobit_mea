@@ -1,12 +1,13 @@
-# Admin Panel - Start Project Dinamis
+# Struktur-AI - Admin Panel start Project
 
-## 📁 Struktur Folder (Simplified)
+## 📁 Struktur Folder (Updated)
 
 ```
-admin-panel/
+struktur-ai/
 │
 ├── index.php                      # Entry point aplikasi
 ├── config.php                     # Konfigurasi database & konstanta
+├── README.md                      # Dokumentasi proyek
 │
 ├── includes/
 │   ├── header.php                 # Header HTML & Navigation
@@ -29,6 +30,12 @@ admin-panel/
 │   │   ├── edit.php               # Edit user
 │   │   └── delete.php             # Delete user
 │   │
+│   ├── games/
+│   │   ├── index.php              # List games
+│   │   ├── create.php             # Create game
+│   │   ├── edit.php               # Edit game
+│   │   └── delete.php             # Delete game
+│   │
 │   ├── settings/
 │   │   └── index.php              # Settings
 │   │
@@ -41,13 +48,12 @@ admin-panel/
 │
 ├── assets/
 │   ├── css/
-│   │   └── style.css
 │   ├── js/
-│   │   └── main.js
 │   ├── images/
-│   │   └── logo.png
 │   └── uploads/
 │       └── avatars/
 │
 └── database/
-    └── schema.sql
+    ├── schema.sql                 # Skema database utama
+    └── game_schema.sql            # Skema database untuk game
+```
