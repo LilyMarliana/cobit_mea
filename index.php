@@ -8,11 +8,11 @@ require_once 'includes/functions.php';
 
 $page = isset($_GET['page']) ? cleanInput($_GET['page']) : 'dashboard';
 $allowedPages = ['dashboard', 'profile', 'users', 'settings', 'games', 'login', 'logout'];
-$publicPages   = ['login']; // Halaman yang tidak butuh login
+$publicPages   = ['login','404']; // Halaman yang tidak butuh login
 
 // Validasi halaman
 if (!in_array($page, $allowedPages)) {
-    $page = 'dashboard';
+    $page = '404';
 }
 
 // 1️⃣ Jika halaman bukan "public", maka lakukan cek login terlebih dahulu
@@ -30,6 +30,9 @@ switch ($page) {
         break;
     case 'logout':
         require_once 'pages/auth/logout.php';
+        break;
+    case '404':
+        require_once 'pages/errors/404.php';
         break;
     case 'dashboard':
         require_once 'pages/dashboard/index.php';

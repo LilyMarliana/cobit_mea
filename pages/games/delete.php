@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Delete image file if exists
         if (!empty($game['image'])) {
-            deleteGameImage($game['image']);
+            deleteImage($game['image'], 'games');
         }
         
         // Delete the game from database
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mt-6 bg-gray-50 p-4 rounded-xl">
             <?php if (!empty($game['image'])): ?>
             <div class="flex justify-center">
-                <img src="<?php echo getGameImageUrl($game['image']); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" class="w-24 h-24 object-cover rounded border">
+                <img src="<?php echo getImageUrl($game['image'], 'games'); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" class="w-24 h-24 object-cover rounded border">
             </div>
             <?php endif; ?>
             <h4 class="text-center mt-3 font-medium text-gray-800"><?php echo htmlspecialchars($game['title']); ?></h4>

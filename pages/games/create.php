@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $imageFileName = null; // Default value
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK && $_FILES['image']['size'] > 0) {
                 // Upload image with temporary ID (0), will be renamed with actual game ID after insertion
-                $imageFileName = uploadGameImage($_FILES['image'], 0);
+                $imageFileName = uploadImage($_FILES['image'], 0, 'games');
                 
                 if (!$imageFileName) {
                     $error = 'Gagal mengupload gambar! Pastikan file adalah gambar valid (JPG, PNG, GIF) dengan ukuran maksimal 5MB.';
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     // If image was uploaded but game insertion failed, delete the uploaded image
                     if ($imageFileName) {
-                        deleteGameImage($imageFileName);
+                        deleteImage($imageFileName, 'games');
                     }
                     $error = 'Gagal menambahkan game!';
                 }

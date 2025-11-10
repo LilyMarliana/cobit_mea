@@ -92,14 +92,14 @@ function getAlert() {
     return null;
 }
 
-// Upload game image
-function uploadGameImage($file, $gameId) {
+// Upload image
+function uploadImage($file, $itemId = 0, $imageType = 'general') {
     if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
         return false;
     }
 
     // Check if uploads directory exists, create if not
-    $uploadDir = UPLOAD_PATH . 'games/';
+    $uploadDir = UPLOAD_PATH . $imageType . '/';
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
@@ -119,11 +119,11 @@ function uploadGameImage($file, $gameId) {
     }
 
     // Generate unique filename
-    // If game ID is 0 (temporary), use timestamp instead
-    if ($gameId == 0) {
+    // If item ID is 0 (temporary), use timestamp instead
+    if ($itemId == 0) {
         $fileName = 'tmp_' . time() . '_' . uniqid() . '.' . $fileExtension;
     } else {
-        $fileName = $gameId . '_' . time() . '.' . $fileExtension;
+        $fileName = $itemId . '_' . time() . '.' . $fileExtension;
     }
     $targetPath = $uploadDir . $fileName;
 
@@ -135,20 +135,21 @@ function uploadGameImage($file, $gameId) {
     return false;
 }
 
-// Delete game image
-function deleteGameImage($imageName) {
+// Delete image
+function deleteImage($imageName, $imageType = 'general') {
     if (!empty($imageName)) {
-        $imagePath = UPLOAD_PATH . 'games/' . $imageName;
+        $imagePath = UPLOAD_PATH . $imageType . '/' . $imageName;
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
     }
 }
 
-// Get game image URL
-function getGameImageUrl($imageName) {
+// Get image URL
+function getImageUrl($imageName, $imageType = 'general') {
     if (empty($imageName)) {
-        return BASE_URL . 'assets/images/no-image.png'; // Default image if none exists
+        return BASE_URL . 'assets/images/no-image.svg'; // Default image if none exists
     }
-    return BASE_URL . 'assets/uploads/games/' . $imageName;
+    return BASE_URL . 'assets/uploads/' . $imageType . '/' . $imageName;
 }
+

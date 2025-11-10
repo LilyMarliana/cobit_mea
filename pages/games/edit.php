@@ -49,11 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK && $_FILES['image']['size'] > 0) {
                 // Delete old image if exists
                 if (!empty($game['image'])) {
-                    deleteGameImage($game['image']);
+                    deleteImage($game['image'], 'games');
                 }
                 
                 // Upload new image
-                $imageFileName = uploadGameImage($_FILES['image'], $gameId);
+                $imageFileName = uploadImage($_FILES['image'], $gameId, 'games');
                 if (!$imageFileName) {
                     $error = 'Gagal mengupload gambar! Pastikan file adalah gambar valid (JPG, PNG, GIF) dengan ukuran maksimal 5MB.';
                 }
@@ -189,7 +189,7 @@ $platforms = $pdo->query("SELECT DISTINCT platform FROM games WHERE platform IS 
             <?php if (!empty($game['image'])): ?>
             <div class="mb-4">
                 <p class="text-sm text-gray-600 mb-2">Gambar saat ini:</p>
-                <img src="<?php echo getGameImageUrl($game['image']); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" class="w-32 h-32 object-cover rounded border">
+                <img src="<?php echo getImageUrl($game['image'], 'games'); ?>" alt="<?php echo htmlspecialchars($game['title']); ?>" class="w-32 h-32 object-cover rounded border">
             </div>
             <?php endif; ?>
             <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl">

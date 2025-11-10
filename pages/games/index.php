@@ -133,7 +133,7 @@ switch ($action) {
                     <?php foreach ($games as $game): ?>
                     <tr class="hover:bg-gray-50 transition-colors">
                         <td class="px-6 py-4">
-                            <img src="<?php echo getGameImageUrl($game['image']); ?>" class="w-16 h-16 object-cover rounded border">
+                            <img src="<?php echo getImageUrl($game['image'], 'games'); ?>" class="w-16 h-16 object-cover rounded border">
                         </td>
                         <td class="px-6 py-4">
                             <div class="font-medium text-gray-800"><?php echo htmlspecialchars($game['title']); ?></div>
