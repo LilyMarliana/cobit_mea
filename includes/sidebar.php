@@ -9,6 +9,16 @@
                     </svg>
                     <span class="font-medium text-gray-700">Dashboard</span>
                 </a>
+            <h3 class="text-xs font-semibold text-gray-400 uppercase px-4 pt-1 pb-1">Master</h3>  
+                <!-- Roles (Admin only) -->
+                <?php if (hasRole('admin')): ?>
+                <a href="index.php?page=roles" class="sidebar-item <?php echo $currentPage === 'roles' ? 'active' : ''; ?> flex items-center space-x-3 px-4 py-3 rounded-xl cursor-pointer transition-all">
+                    <svg class="w-5 h-5 <?php echo $currentPage === 'roles' ? 'text-blue-600' : 'text-gray-500'; ?>" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    <span class="font-medium text-gray-700">Roles</span>
+                </a>
+                <?php endif; ?>
 
                 <!-- Users (Admin & Manager only) -->
                 <?php if (hasRole(['admin', 'manager'])): ?>
@@ -20,15 +30,7 @@
                 </a>
                 <?php endif; ?>
 
-                <!-- Roles (Admin only) -->
-                <?php if (hasRole('admin')): ?>
-                <a href="index.php?page=roles" class="sidebar-item <?php echo $currentPage === 'roles' ? 'active' : ''; ?> flex items-center space-x-3 px-4 py-3 rounded-xl cursor-pointer transition-all">
-                    <svg class="w-5 h-5 <?php echo $currentPage === 'roles' ? 'text-blue-600' : 'text-gray-500'; ?>" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                    </svg>
-                    <span class="font-medium text-gray-700">Roles</span>
-                </a>
-                <?php endif; ?>
+                <h3 class="text-xs font-semibold text-gray-400 uppercase px-4 pt-1 pb-1">Data</h3>
 
                 <!-- Games (Admin & Manager only) -->
                 <?php if (hasRole(['admin', 'manager'])): ?>
