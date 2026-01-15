@@ -1,140 +1,123 @@
-# Struktur-AI - Admin Panel & Game Management System
+📊 Sistem Assessment Tata Kelola TI
+COBIT 5 – Domain MEA (Monitor, Evaluate, and Assess)
+📋 Deskripsi Proyek
 
-## 📋 Deskripsi Proyek
+Proyek ini merupakan sistem berbasis web yang dikembangkan untuk mendukung assessment tata kelola Teknologi Informasi berdasarkan framework COBIT 5, khususnya pada domain MEA (Monitor, Evaluate, and Assess).
 
-Template repository untuk sistem admin panel dengan manajemen game. Proyek ini menyediakan struktur dasar untuk sistem manajemen pengguna dan game dengan otentikasi serta sistem otorisasi.
+Sistem ini dirancang sebagai media pembelajaran dan implementasi praktis untuk membantu konsultan dalam:
 
-## 📄 Fitur PDF Generator
+Melakukan penilaian (assessment) tingkat kematangan tata kelola TI
 
-Proyek ini dilengkapi dengan fitur PDF generator menggunakan library TCPDF yang memungkinkan pengguna untuk:
-- Mengunduh laporan assessment COBIT dalam format PDF
-- Menghasilkan grafik dan ringkasan hasil assessment dalam bentuk PDF
-- Mencetak dan menyimpan laporan dalam format profesional
+Mengelola data assessment secara terstruktur
 
-### Cara Menggunakan Fitur PDF
+Menyajikan hasil evaluasi dalam bentuk laporan dan visualisasi
 
-1. **Melalui Antarmuka Web**:
-   - Kunjungi halaman `pdf_download_page.php` untuk akses antarmuka yang ramah pengguna
-   - Klik tombol "Unduh Laporan PDF" untuk mendapatkan laporan lengkap
-   - Klik tombol "Ke Halaman Download PDF" dari halaman `add_spider_chart.php`
+Menghasilkan laporan resmi dalam format PDF
 
-2. **Langsung Mengakses File**:
-   - Akses `generate_pdf.php` untuk laporan PDF lengkap
-   - Akses `generate_chart_pdf.php` untuk laporan dengan grafik ringkasan
+Proyek ini dikembangkan sebagai bagian dari tugas perkuliahan dan dapat digunakan sebagai studi kasus penerapan COBIT 5 pada lingkungan organisasi.
 
-3. **File-file Terkait**:
-   - `vendor/tcpdf/` - Library TCPDF
-   - `autoload.php` - Autoloader untuk TCPDF
-   - `generate_pdf.php` - Generator laporan PDF lengkap
-   - `generate_chart_pdf.php` - Generator laporan dengan grafik
-   - `pdf_download_page.php` - Antarmuka download PDF
-   - `setup_pdf_tables.php` - Script untuk membuat tabel-tabel database yang diperlukan
-   - `PANDUAN_PDF.md` - Dokumentasi lengkap fitur PDF
+🎯 Tujuan Pengembangan
 
-### Persiapan Database
+Mengimplementasikan konsep COBIT 5 domain MEA ke dalam sistem informasi
 
-Sebelum menggunakan fitur PDF, pastikan untuk menjalankan file `setup_pdf_tables.php` untuk membuat tabel-tabel yang diperlukan dalam database. Fitur ini memerlukan tabel-tabel berikut:
-- `assessments` - Menyimpan data assessment pengguna
-- `assessment_answers` - Menyimpan jawaban dari assessment
-- `questions` - Menyimpan pertanyaan-pertanyaan assessment
+Memfasilitasi proses monitoring, evaluasi, dan assessment tata kelola TI
 
-## 🚀 Instalasi
+Menyediakan laporan hasil assessment yang informatif dan profesional
 
-### Prasyarat
-- PHP 7.4 atau lebih tinggi
-- MySQL/MariaDB
-- Web server (Apache/Nginx)
+Mendukung proses analisis dan dokumentasi untuk kebutuhan akademik
 
-### Langkah-langkah Instalasi
+📄 Fitur Utama
 
-1. **Clone repository atau gunakan sebagai template**
-   ```
-   git clone https://github.com/username/struktur-ai.git
-   # Atau gunakan tombol "Use this template" di GitHub
-   ```
+🔐 Sistem Autentikasi & Otorisasi
 
-2. **Konfigurasi Database**
-   - Buat database baru di MySQL/MariaDB
-   - Import file `database/schema.sql` untuk skema utama
-   - Import file `database/game_schema.sql` untuk skema game
-   - **Catatan**: File skema mungkin sudah termasuk default admin user:
+🗂️ Manajemen Data Assessment COBIT
 
-     -- Insert default admin user
-     -- Username: admin
-     -- Password: admin123
+📊 Visualisasi hasil assessment (grafik radar/spider chart)
 
-3. **Konfigurasi Aplikasi**
-   - Buka file `config.php`
-   - Sesuaikan konfigurasi database:
-     ```php
-     define('DB_HOST', 'localhost');        // Host database
-     define('DB_USER', 'root');             // Username database
-     define('DB_PASS', '');                 // Password database
-     define('DB_NAME', 'admin_panel_db');   // Nama database
-     ```
-   - Atur BASE_URL sesuai dengan lokasi proyek Anda:
-     ```php
-     define('BASE_URL', 'http://localhost/latihan/struktur-ai/');
-     ```
+📑 PDF Generator menggunakan TCPDF
 
-4. **Struktur Folder**
-   - Buat folder `assets/uploads/avatars/` dan pastikan web server memiliki izin untuk menulis di folder ini
+🧾 Ringkasan hasil assessment dalam laporan PDF
 
-5. **Akses Aplikasi**
-   - Buka browser dan akses URL proyek
-   - Gunakan kredensial default berikut untuk login pertama:
-     - Username: `admin`
-     - Password: `admin123`
-   - Sebaiknya ubah password default setelah login pertama untuk alasan keamanan
+🗄️ Integrasi database untuk penyimpanan hasil evaluasi
 
-## 📁 Struktur Folder
+📄 Fitur PDF Generator
 
-```
-struktur-ai/
-│
-├── index.php                      # Entry point aplikasi
-├── config.php                     # Konfigurasi database & konstanta
-├── README.md                      # Dokumentasi proyek
-│
-├── includes/
-│   ├── header.php                 # Header HTML & Navigation
-│   ├── footer.php                 # Footer HTML
-│   ├── sidebar.php                # Sidebar navigation
-│   ├── functions.php              # Fungsi-fungsi helper
-│   ├── db_connect.php             # Koneksi database
-│   └── auth_check.php             # Cek authentication & authorization
-│
-├── pages/
-│   ├── dashboard/
-│   │   └── index.php              # Dashboard
-│   │
-│   ├── profile/
-│   │   └── index.php              # Profile
-│   │
-│   ├── users/
-│   │   ├── index.php              # List users
-│   │   ├── create.php             # Create user
-│   │   ├── edit.php               # Edit user
-│   │   └── delete.php             # Delete user
-│   │
-│   ├── settings/
-│   │   └── index.php              # Settings
-│   │
-│   ├── auth/
-│   │   ├── login.php              # Login
-│   │   └── logout.php             # Logout
-│   │
-│   └── errors/
-│       └── 403.php                # Access Denied
-│
-├── assets/
-│   ├── css/
-│   ├── js/
-│   ├── images/
-│   └── uploads/
-│       └── avatars/
-│
-└── database/
-    ├── schema.sql                 # Skema database utama
-    └── game_schema.sql            # Skema database untuk game
-```
+Sistem ini dilengkapi dengan fitur pembuatan laporan assessment COBIT dalam format PDF menggunakan library TCPDF, yang memungkinkan pengguna untuk:
+
+Mengunduh laporan hasil assessment COBIT 5 (domain MEA)
+
+Menghasilkan grafik dan ringkasan hasil evaluasi dalam PDF
+
+Menyimpan laporan dalam format formal untuk dokumentasi atau pelaporan
+
+Cara Menggunakan Fitur PDF
+
+Melalui Antarmuka Web:
+
+Akses halaman pdf_download_page.php
+
+Klik tombol “Unduh Laporan PDF”
+
+Alternatif melalui halaman add_spider_chart.php
+
+Akses Langsung File:
+
+generate_pdf.php → Laporan assessment lengkap
+
+generate_chart_pdf.php → Laporan ringkasan dengan grafik
+
+File Terkait:
+
+vendor/tcpdf/ – Library TCPDF
+
+autoload.php – Autoloader TCPDF
+
+setup_pdf_tables.php – Setup tabel database PDF
+
+PANDUAN_PDF.md – Dokumentasi fitur PDF
+
+🗄️ Persiapan Database
+
+Sebelum menggunakan fitur PDF, jalankan:
+
+setup_pdf_tables.php
+
+
+Tabel yang digunakan:
+
+assessments – Data assessment
+
+assessment_answers – Jawaban assessment
+
+questions – Pertanyaan COBIT MEA
+
+🚀 Instalasi & Konfigurasi
+Prasyarat
+
+PHP 7.4 atau lebih tinggi
+
+MySQL / MariaDB
+
+Web Server (Apache / Nginx / Laragon)
+
+Langkah Instalasi
+
+Clone repository:
+
+git clone https://github.com/LilyMarliana/cobit_mea.git
+
+
+Konfigurasi database di config.php:
+
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'cobit_mea');
+
+
+Atur BASE_URL sesuai lokasi project:
+
+define('BASE_URL', 'http://localhost/cobit_mea/');
+
+
+Jalankan aplikasi melalui browser
