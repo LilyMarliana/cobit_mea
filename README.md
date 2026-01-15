@@ -4,6 +4,40 @@
 
 Template repository untuk sistem admin panel dengan manajemen game. Proyek ini menyediakan struktur dasar untuk sistem manajemen pengguna dan game dengan otentikasi serta sistem otorisasi.
 
+## 📄 Fitur PDF Generator
+
+Proyek ini dilengkapi dengan fitur PDF generator menggunakan library TCPDF yang memungkinkan pengguna untuk:
+- Mengunduh laporan assessment COBIT dalam format PDF
+- Menghasilkan grafik dan ringkasan hasil assessment dalam bentuk PDF
+- Mencetak dan menyimpan laporan dalam format profesional
+
+### Cara Menggunakan Fitur PDF
+
+1. **Melalui Antarmuka Web**:
+   - Kunjungi halaman `pdf_download_page.php` untuk akses antarmuka yang ramah pengguna
+   - Klik tombol "Unduh Laporan PDF" untuk mendapatkan laporan lengkap
+   - Klik tombol "Ke Halaman Download PDF" dari halaman `add_spider_chart.php`
+
+2. **Langsung Mengakses File**:
+   - Akses `generate_pdf.php` untuk laporan PDF lengkap
+   - Akses `generate_chart_pdf.php` untuk laporan dengan grafik ringkasan
+
+3. **File-file Terkait**:
+   - `vendor/tcpdf/` - Library TCPDF
+   - `autoload.php` - Autoloader untuk TCPDF
+   - `generate_pdf.php` - Generator laporan PDF lengkap
+   - `generate_chart_pdf.php` - Generator laporan dengan grafik
+   - `pdf_download_page.php` - Antarmuka download PDF
+   - `setup_pdf_tables.php` - Script untuk membuat tabel-tabel database yang diperlukan
+   - `PANDUAN_PDF.md` - Dokumentasi lengkap fitur PDF
+
+### Persiapan Database
+
+Sebelum menggunakan fitur PDF, pastikan untuk menjalankan file `setup_pdf_tables.php` untuk membuat tabel-tabel yang diperlukan dalam database. Fitur ini memerlukan tabel-tabel berikut:
+- `assessments` - Menyimpan data assessment pengguna
+- `assessment_answers` - Menyimpan jawaban dari assessment
+- `questions` - Menyimpan pertanyaan-pertanyaan assessment
+
 ## 🚀 Instalasi
 
 ### Prasyarat
@@ -82,12 +116,6 @@ struktur-ai/
 │   │   ├── create.php             # Create user
 │   │   ├── edit.php               # Edit user
 │   │   └── delete.php             # Delete user
-│   │
-│   ├── games/
-│   │   ├── index.php              # List games
-│   │   ├── create.php             # Create game
-│   │   ├── edit.php               # Edit game
-│   │   └── delete.php             # Delete game
 │   │
 │   ├── settings/
 │   │   └── index.php              # Settings

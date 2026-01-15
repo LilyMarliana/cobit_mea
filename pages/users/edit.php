@@ -116,7 +116,7 @@ $roles = $pdo->query("SELECT * FROM roles ORDER BY role_name")->fetchAll();
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Role *</label>
                 <select name="role_id" required
-                    class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                    class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
                     <?php foreach ($roles as $role): ?>
                         <option value="<?php echo $role['id']; ?>"
                             <?php echo ($user['role_id'] == $role['id']) ? 'selected' : ''; ?>>
@@ -131,7 +131,7 @@ $roles = $pdo->query("SELECT * FROM roles ORDER BY role_name")->fetchAll();
                 <div class="flex items-center space-x-3 mt-3">
                     <input type="checkbox" name="is_active" id="is_active" value="1"
                         <?php echo $user['is_active'] ? 'checked' : ''; ?>
-                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        class="w-4 h-4 text-[#3291B6] border-gray-300 rounded focus:ring-[#3291B6]">
                     <label for="is_active" class="text-sm text-gray-700">Akun Aktif</label>
                 </div>
             </div>
@@ -186,7 +186,7 @@ $roles = $pdo->query("SELECT * FROM roles ORDER BY role_name")->fetchAll();
         </div>
 
         <div class="flex space-x-3 pt-4 border-t">
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-xl transition-colors">
+            <button type="submit" class="bg-[#3291B6] hover:bg-[#2a7a99] text-white font-medium py-2 px-6 rounded-xl transition-colors">
                 Update User
             </button>
             <a href="index.php?page=users" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-6 rounded-xl transition-colors inline-block">

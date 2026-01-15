@@ -95,24 +95,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Password Saat Ini *</label>
                     <input type="password" name="current_password" required 
-                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Password Baru *</label>
                     <input type="password" name="new_password" required 
-                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
                     <p class="text-xs text-gray-500 mt-1">Minimal 6 karakter</p>
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password Baru *</label>
                     <input type="password" name="confirm_password" required 
-                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
                 </div>
                 
                 <div class="pt-4">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-xl transition-colors">
+                    <button type="submit" class="bg-[#3291B6] hover:bg-[#2a7a99] text-white font-medium py-2 px-6 rounded-xl transition-colors">
                         Ubah Password
                     </button>
                 </div>
@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                 </div>
                 
                 <div class="pt-4">
-                    <a href="index.php?page=profile" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-xl transition-colors inline-block">
+                    <a href="index.php?page=profile" class="bg-[#3291B6] hover:bg-[#2a7a99] text-white font-medium py-2 px-6 rounded-xl transition-colors inline-block">
                         Edit Profil
                     </a>
                 </div>
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                 <?php if (count($userActivities) > 0): ?>
                     <?php foreach ($userActivities as $activity): ?>
                     <div class="flex items-start space-x-3 py-3 border-b last:border-b-0">
-                        <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                        <div class="w-2 h-2 bg-[#3291B6] rounded-full mt-2"></div>
                         <div class="flex-1">
                             <p class="text-sm text-gray-700"><?php echo htmlspecialchars($activity['description']); ?></p>
                             <div class="flex items-center space-x-2 mt-1">
@@ -216,13 +216,13 @@ function showSection(section) {
     
     // Remove active class from all nav items
     document.querySelectorAll('.setting-nav').forEach(el => {
-        el.classList.remove('active', 'bg-blue-50');
+        el.classList.remove('active', 'bg-[#3291B6]/10');
     });
     
     // Show selected section
     document.getElementById(section + '-section').classList.remove('hidden');
     
     // Add active class to selected nav
-    document.querySelector(`[data-section="${section}"]`).classList.add('active', 'bg-blue-50');
+    document.querySelector(`[data-section="${section}"]`).classList.add('active', 'bg-[#3291B6]/10');
 }
 </script>

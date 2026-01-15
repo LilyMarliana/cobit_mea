@@ -1,211 +1,341 @@
 <?php
-// Get statistics
-$totalUsers = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
-$totalActive = $pdo->query("SELECT COUNT(*) FROM users WHERE is_active = 1")->fetchColumn();
-$totalAdmins = $pdo->query("SELECT COUNT(*) FROM users u JOIN roles r ON u.role_id = r.id WHERE r.role_name = 'admin'")->fetchColumn();
+// Dashboard page for COBIT 5 MEA Assessment System
+// Path has been corrected to work with the main index.php structure
 
-// Get recent activities
+// Get user's recent assessments
 $stmt = $pdo->prepare("
-    SELECT al.*, u.username, u.first_name, u.last_name 
-    FROM activity_logs al 
-    LEFT JOIN users u ON al.user_id = u.id 
-    ORDER BY al.created_at DESC 
-    LIMIT 10
-");
-$stmt->execute();
-$activities = $stmt->fetchAll();
-
-// Get user's recent activities
-$stmtUserActivities = $pdo->prepare("
-    SELECT * FROM activity_logs 
-    WHERE user_id = ? 
-    ORDER BY created_at DESC 
+    SELECT a.*, asum.overall_maturity_level, asum.maturity_status
+    FROM assessments a
+    LEFT JOIN assessment_summary asum ON a.id = asum.assessment_id
+    WHERE a.user_id = ?
+    ORDER BY a.created_at DESC
     LIMIT 5
 ");
-$stmtUserActivities->execute([$_SESSION['user_id']]);
-$userActivities = $stmtUserActivities->fetchAll();
+$stmt->execute([$_SESSION['user_id']]);
+$recentAssessments = $stmt->fetchAll();
 ?>
 
-<div class="mb-6">
-    <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
-    <p class="text-gray-500 mt-1">Selamat datang kembali, <?php echo htmlspecialchars($currentUser['first_name']); ?>!</p>
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Dashboard COBIT 5 MEA</h1>
+    <p class="text-gray-600">Sistem Assessment Maturity Level COBIT 5 Domain Monitor, Evaluate, Assess</p>
 </div>
 
-<!-- Stats Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-    <div class="bg-white rounded-2xl shadow-sm p-6 card-hover transition-all">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm text-gray-500 font-medium">Total Users</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1"><?php echo number_format($totalUsers); ?></p>
-                <p class="text-xs text-gray-400 mt-2">Semua pengguna terdaftar</p>
-            </div>
-            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded-2xl shadow-sm p-6 card-hover transition-all">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm text-gray-500 font-medium">Active Users</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1"><?php echo number_format($totalActive); ?></p>
-                <p class="text-xs text-green-600 mt-2">
-                    <?php echo $totalUsers > 0 ? round(($totalActive/$totalUsers)*100) : 0; ?>% dari total
-                </p>
-            </div>
-            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded-2xl shadow-sm p-6 card-hover transition-all">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm text-gray-500 font-medium">Administrators</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1"><?php echo number_format($totalAdmins); ?></p>
-                <p class="text-xs text-gray-400 mt-2">Total admin aktif</p>
-            </div>
-            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white rounded-2xl shadow-sm p-6 card-hover transition-all">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm text-gray-500 font-medium">Your Role</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1"><?php echo ucfirst($currentUser['role_name']); ?></p>
-                <p class="text-xs text-gray-400 mt-2">Level akses Anda</p>
-            </div>
-            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Recent Activity & Quick Actions -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-    <!-- Recent Activity (All Users - Admin & Manager only) -->
-    <?php if (hasRole(['admin', 'manager'])): ?>
-    <div class="bg-white rounded-2xl shadow-sm p-6">
-        <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-bold text-gray-800">Recent Activity (All Users)</h3>
-            <span class="text-xs text-gray-500"><?php echo count($activities); ?> aktivitas</span>
-        </div>
-        <div class="space-y-3 max-h-96 overflow-y-auto">
-            <?php if (count($activities) > 0): ?>
-                <?php foreach ($activities as $activity): ?>
-                <div class="flex items-start space-x-3 pb-3 border-b last:border-b-0">
-                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm text-gray-700">
-                            <strong class="font-semibold"><?php echo htmlspecialchars($activity['first_name'] . ' ' . $activity['last_name']); ?></strong>
-                            <span class="text-gray-600"><?php echo htmlspecialchars($activity['description']); ?></span>
-                        </p>
-                        <div class="flex items-center space-x-2 mt-1">
-                            <p class="text-xs text-gray-400"><?php echo formatDate($activity['created_at']); ?></p>
-                            <?php if ($activity['ip_address']): ?>
-                            <span class="text-gray-300">•</span>
-                            <p class="text-xs text-gray-400">IP: <?php echo htmlspecialchars($activity['ip_address']); ?></p>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="text-sm text-gray-500 text-center py-8">Belum ada aktivitas</p>
-            <?php endif; ?>
-        </div>
-    </div>
-    <?php else: ?>
-    <!-- My Recent Activity (For Staff & User) -->
-    <div class="bg-white rounded-2xl shadow-sm p-6">
-        <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-bold text-gray-800">My Recent Activity</h3>
-            <span class="text-xs text-gray-500"><?php echo count($userActivities); ?> aktivitas</span>
-        </div>
-        <div class="space-y-3">
-            <?php if (count($userActivities) > 0): ?>
-                <?php foreach ($userActivities as $activity): ?>
-                <div class="flex items-start space-x-3 pb-3 border-b last:border-b-0">
-                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm text-gray-700"><?php echo htmlspecialchars($activity['description']); ?></p>
-                        <p class="text-xs text-gray-400 mt-1"><?php echo formatDate($activity['created_at']); ?></p>
-                    </div>
-                </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="text-sm text-gray-500 text-center py-8">Belum ada aktivitas</p>
-            <?php endif; ?>
-        </div>
-    </div>
-    <?php endif; ?>
-
-    <!-- Quick Actions -->
-    <div class="bg-white rounded-2xl shadow-sm p-6">
-        <h3 class="text-lg font-bold text-gray-800 mb-4">Quick Actions</h3>
-        <div class="grid grid-cols-2 gap-3">
-            <?php if (hasRole(['admin', 'manager'])): ?>
-            <a href="index.php?page=users&action=create" class="flex flex-col items-center justify-center space-y-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl py-4 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-                </svg>
-                <span class="font-medium text-sm">Add User</span>
-            </a>
-            
-            <a href="index.php?page=users" class="flex flex-col items-center justify-center space-y-2 bg-green-50 hover:bg-green-100 text-green-700 rounded-xl py-4 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                </svg>
-                <span class="font-medium text-sm">Manage Users</span>
-            </a>
-            <?php endif; ?>
-            
-            <a href="index.php?page=profile" class="flex flex-col items-center justify-center space-y-2 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl py-4 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                </svg>
-                <span class="font-medium text-sm">View Profile</span>
-            </a>
-            
-            <a href="index.php?page=settings" class="flex flex-col items-center justify-center space-y-2 bg-orange-50 hover:bg-orange-100 text-orange-700 rounded-xl py-4 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <span class="font-medium text-sm">Settings</span>
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- Account Info Card -->
-<div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg p-6 text-white">
-    <div class="flex items-center justify-between">
+<!-- Welcome Card -->
+<div class="bg-gradient-to-r from-[#3291B6] to-[#2a7a99] rounded-2xl p-6 text-white mb-8">
+    <div class="flex items-start justify-between">
         <div>
-            <h3 class="text-lg font-bold mb-2">Informasi Akun</h3>
-            <div class="space-y-2 text-sm">
-                <p><span class="opacity-80">Username:</span> <strong><?php echo htmlspecialchars($currentUser['username']); ?></strong></p>
-                <p><span class="opacity-80">Email:</span> <strong><?php echo htmlspecialchars($currentUser['email']); ?></strong></p>
-                <p><span class="opacity-80">Last Login:</span> <strong><?php echo $currentUser['last_login'] ? formatDate($currentUser['last_login']) : 'Baru pertama kali'; ?></strong></p>
-            </div>
+            <h2 class="text-2xl font-bold mb-2">Selamat Datang, <?php echo htmlspecialchars($currentUser['first_name']); ?>!</h2>
+            <p class="text-[#3291B6]/20 mb-4">Sistem ini dirancang untuk mengevaluasi tingkat kematangan praktik IT Anda berdasarkan framework COBIT 5 Domain MEA (Monitor, Evaluate, Assess).</p>
+           <a href="index.php?page=assessment"
+   class="inline-block bg-white text-[#3291B6] font-semibold px-6 py-3 rounded-xl
+          hover:bg-[#3291B6]/10 transition-colors
+          relative z-20">
+   Mulai Assessment
+</a>
         </div>
-        <div class="hidden md:block">
-            <img src="<?php echo getAvatarUrl($currentUser['avatar']); ?>" class="w-24 h-24 rounded-full border-4 border-white/30">
+        <div class="text-5xl opacity-30">📊</div>
+    </div>
+</div>
+
+<!-- COBIT 5 Overview -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 card-hover transition-all">
+        <div class="w-12 h-12 bg-[#3291B6]/10 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-[#3291B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+        </div>
+        <h3 class="font-bold text-lg text-gray-800 mb-2">COBIT 5 Framework</h3>
+        <p class="text-gray-600 text-sm">COBIT 5 (Control Objectives for Information and Related Technologies) adalah framework tata kelola dan manajemen TI yang membantu organisasi mencapai tujuan bisnisnya.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 card-hover transition-all">
+        <div class="w-12 h-12 bg-[#3291B6]/10 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-[#3291B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+        </div>
+        <h3 class="font-bold text-lg text-gray-800 mb-2">Domain MEA</h3>
+        <p class="text-gray-600 text-sm">MEA (Monitor, Evaluate, Assess) adalah domain COBIT 5 yang fokus pada pemantauan, evaluasi, dan penilaian kinerja dan kepatuhan TI terhadap kriteria yang relevan.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 card-hover transition-all">
+        <div class="w-12 h-12 bg-[#3291B6]/10 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-[#3291B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+        </div>
+        <h3 class="font-bold text-lg text-gray-800 mb-2">Maturity Level</h3>
+        <p class="text-gray-600 text-sm">Tingkat kematangan (0-5) menunjukkan sejauh mana proses TI telah didefinisikan, dikelola, dan dioptimalkan dalam organisasi Anda.</p>
+    </div>
+</div>
+
+<!-- MEA Processes Overview -->
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8">
+    <h2 class="text-xl font-bold text-gray-800 mb-6">Proses COBIT 5 Domain MEA</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="border border-gray-200 rounded-xl p-4">
+            <h3 class="font-bold text-gray-800 mb-2">MEA01 - Monitor, Evaluate and Assess Performance and Conformance</h3>
+            <p class="text-gray-600 text-sm mb-3">Menyediakan jaminan bahwa tujuan, objektif, dan aktivitas terkait TI dipantau, dievaluasi, dan dinilai terhadap kriteria yang relevan.</p>
+            <span class="inline-block bg-[#3291B6]/10 text-[#3291B6] text-xs px-2 py-1 rounded">Performance & Conformance</span>
+        </div>
+        <div class="border border-gray-200 rounded-xl p-4">
+            <h3 class="font-bold text-gray-800 mb-2">MEA02 - Monitor, Evaluate and Assess IT Governance System Performance</h3>
+            <p class="text-gray-600 text-sm mb-3">Menyediakan jaminan bahwa sistem tata kelola TI berkinerja sesuai yang diperlukan untuk mendukung pencapaian tujuan organisasi.</p>
+            <span class="inline-block bg-[#3291B6]/10 text-[#3291B6] text-xs px-2 py-1 rounded">Governance System</span>
+        </div>
+        <div class="border border-gray-200 rounded-xl p-4">
+            <h3 class="font-bold text-gray-800 mb-2">MEA03 - Monitor, Evaluate and Assess Risk</h3>
+            <p class="text-gray-600 text-sm mb-3">Menyediakan jaminan bahwa risiko terkait TI dipantau, dievaluasi, dan dinilai untuk mendukung keputusan manajemen risiko dan nafsu risiko.</p>
+            <span class="inline-block bg-[#3291B6]/10 text-[#3291B6] text-xs px-2 py-1 rounded">Risk Management</span>
         </div>
     </div>
+</div>
+
+<!-- Recent Assessments -->
+<?php if (!empty($recentAssessments)): ?>
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+    <h2 class="text-xl font-bold text-gray-800 mb-6">Assessment Terbaru</h2>
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead>
+                <tr class="border-b border-gray-200">
+                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Judul</th>
+                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Tanggal</th>
+                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
+                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Maturity Level</th>
+                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($recentAssessments as $assessment): ?>
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-3 px-4"><?php echo htmlspecialchars($assessment['title']); ?></td>
+                    <td class="py-3 px-4"><?php echo formatDate($assessment['created_at']); ?></td>
+                    <td class="py-3 px-4">
+                        <span class="inline-block bg-<?php echo $assessment['status'] === 'completed' ? 'green' : 'yellow'; ?>-100 text-<?php echo $assessment['status'] === 'completed' ? 'green' : 'yellow'; ?>-800 text-xs px-2 py-1 rounded">
+                            <?php echo $assessment['status'] === 'completed' ? 'Selesai' : 'Dalam Proses'; ?>
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <?php if ($assessment['overall_maturity_level']): ?>
+                            <span class="font-semibold"><?php echo number_format($assessment['overall_maturity_level'], 2); ?>/5.0</span>
+                            <div class="text-xs text-gray-500"><?php echo $assessment['maturity_status']; ?></div>
+                        <?php else: ?>
+                            <span class="text-gray-400">Belum dihitung</span>
+                        <?php endif; ?>
+                    </td>
+                    <td class="py-3 px-4">
+                        <a href="index.php?page=results&id=<?php echo $assessment['id']; ?>" class="text-[#3291B6] hover:text-[#2a7a99] text-sm font-medium">Lihat Hasil</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4 text-right">
+        <a href="index.php?page=history" class="text-[#3291B6] hover:text-[#2a7a99] text-sm font-medium">Lihat Semua Assessment →</a>
+    </div>
+</div>
+<?php endif; ?>
+</div>
+</main>
+
+<script>
+    // Toggle sidebar on mobile
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        sidebar.classList.toggle('translate-x-0');
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+    }
+    
+    // Toggle profile menu
+    function toggleProfileMenu() {
+        const menu = document.getElementById('profileMenu');
+        menu.classList.toggle('hidden');
+    }
+    
+    // Close profile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('profileMenu');
+        const button = document.querySelector('[onclick="toggleProfileMenu()"]');
+        
+        if (!button.contains(event.target) && !menu.contains(event.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+</script>
+</body>
+</html>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>

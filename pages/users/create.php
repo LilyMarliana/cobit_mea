@@ -83,14 +83,14 @@ $roles = $pdo->query("SELECT * FROM roles ORDER BY role_name")->fetchAll();
                 <label class="block text-sm font-medium text-gray-700 mb-2">Username *</label>
                 <input type="text" name="username" required 
                        value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>"
-                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
             </div>
             
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
                 <input type="email" name="email" required 
                        value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"
-                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
             </div>
         </div>
         
@@ -99,14 +99,14 @@ $roles = $pdo->query("SELECT * FROM roles ORDER BY role_name")->fetchAll();
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nama Depan *</label>
                 <input type="text" name="first_name" required 
                        value="<?php echo isset($_POST['first_name']) ? htmlspecialchars($_POST['first_name']) : ''; ?>"
-                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
             </div>
             
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nama Belakang</label>
                 <input type="text" name="last_name" 
                        value="<?php echo isset($_POST['last_name']) ? htmlspecialchars($_POST['last_name']) : ''; ?>"
-                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
             </div>
         </div>
         
@@ -114,21 +114,21 @@ $roles = $pdo->query("SELECT * FROM roles ORDER BY role_name")->fetchAll();
             <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon</label>
             <input type="tel" name="phone" 
                    value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>"
-                   class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                   class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Password *</label>
                 <input type="password" name="password" required 
-                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
                 <p class="text-xs text-gray-500 mt-1">Minimal 6 karakter</p>
             </div>
             
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi Password *</label>
                 <input type="password" name="confirm_password" required 
-                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
             </div>
         </div>
         
@@ -136,7 +136,7 @@ $roles = $pdo->query("SELECT * FROM roles ORDER BY role_name")->fetchAll();
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Role *</label>
                 <select name="role_id" required 
-                        class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                        class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none">
                     <option value="">Pilih Role</option>
                     <?php foreach ($roles as $role): ?>
                         <option value="<?php echo $role['id']; ?>" 
@@ -152,14 +152,14 @@ $roles = $pdo->query("SELECT * FROM roles ORDER BY role_name")->fetchAll();
                 <div class="flex items-center space-x-3 mt-3">
                     <input type="checkbox" name="is_active" id="is_active" value="1" 
                            <?php echo (!isset($_POST['is_active']) || $_POST['is_active']) ? 'checked' : ''; ?>
-                           class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                           class="w-4 h-4 text-[#3291B6] border-gray-300 rounded focus:ring-[#3291B6]">
                     <label for="is_active" class="text-sm text-gray-700">Akun Aktif</label>
                 </div>
             </div>
         </div>
         
         <div class="flex space-x-3 pt-4 border-t">
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-xl transition-colors">
+            <button type="submit" class="bg-[#3291B6] hover:bg-[#2a7a99] text-white font-medium py-2 px-6 rounded-xl transition-colors">
                 Simpan User
             </button>
             <a href="index.php?page=users" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-6 rounded-xl transition-colors inline-block">

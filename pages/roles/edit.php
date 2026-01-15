@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label class="block text-sm font-medium text-gray-700 mb-2">Nama Role *</label>
             <input type="text" name="role_name" required
                    value="<?php echo htmlspecialchars($role['role_name']); ?>"
-                   class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                   class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none"
                    <?php echo $role['role_name'] === 'admin' ? 'readonly' : ''; ?>>
             <?php if ($role['role_name'] === 'admin'): ?>
                 <p class="text-xs text-gray-500 mt-1">Role admin tidak dapat diubah namanya</p>
@@ -99,11 +99,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
             <textarea name="description" rows="4"
-                      class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"><?php echo htmlspecialchars($role['description']); ?></textarea>
+                      class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none"><?php echo htmlspecialchars($role['description']); ?></textarea>
         </div>
 
         <div class="flex space-x-3 pt-4 border-t">
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-xl transition-colors">
+            <button type="submit" class="bg-[#3291B6] hover:bg-[#2a7a99] text-white font-medium py-2 px-6 rounded-xl transition-colors">
                 Update Role
             </button>
             <a href="index.php?page=roles" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-6 rounded-xl transition-colors inline-block">

@@ -28,20 +28,26 @@ function isIPBlocked($pdo, $ipAddress) {
 
     $windowStart = time() - $timeWindow;
 
-    // Count failed attempts within the time window
-    $stmt = $pdo->prepare("
-        SELECT COUNT(*) as failed_attempts
-        FROM failed_login_attempts
-        WHERE ip_address = ? AND attempt_time > FROM_UNIXTIME(?)
-    ");
-    $stmt->execute([$ipAddress, $windowStart]);
-    $result = $stmt->fetch();
+    try {
+        // Count failed attempts within the time window
+        $stmt = $pdo->prepare("
+            SELECT COUNT(*) as failed_attempts
+            FROM failed_login_attempts
+            WHERE ip_address = ? AND attempt_time > FROM_UNIXTIME(?)
+        ");
+        $stmt->execute([$ipAddress, $windowStart]);
+        $result = $stmt->fetch();
 
-    $failedAttempts = $result ? $result['failed_attempts'] : 0;
+        $failedAttempts = $result ? $result['failed_attempts'] : 0;
 
-    // Check if the user should be blocked
-    if ($failedAttempts >= $maxAttempts) {
-        return true;
+        // Check if the user should be blocked
+        if ($failedAttempts >= $maxAttempts) {
+            return true;
+        }
+    } catch (PDOException $e) {
+        // If the table doesn't exist, assume no failed attempts
+        // This will happen before the database is set up
+        return false;
     }
 
     return false;
@@ -74,42 +80,48 @@ function getRemainingBlockTime() {
 
     $windowStart = time() - $timeWindow;
 
-    // Count failed attempts within the time window
-    $stmt = $pdo->prepare("
-        SELECT COUNT(*) as failed_attempts
-        FROM failed_login_attempts
-        WHERE ip_address = ? AND attempt_time > FROM_UNIXTIME(?)
-    ");
-    $stmt->execute([$ipAddress, $windowStart]);
-    $result = $stmt->fetch();
-
-    $failedAttempts = $result ? $result['failed_attempts'] : 0;
-
-    // Check if the user should be blocked
-    if ($failedAttempts >= $maxAttempts) {
-        // Calculate when the block will end (last failed attempt + block time)
+    try {
+        // Count failed attempts within the time window
         $stmt = $pdo->prepare("
-            SELECT UNIX_TIMESTAMP(attempt_time) as attempt_timestamp
+            SELECT COUNT(*) as failed_attempts
             FROM failed_login_attempts
-            WHERE ip_address = ?
-            ORDER BY attempt_time DESC
-            LIMIT 1
+            WHERE ip_address = ? AND attempt_time > FROM_UNIXTIME(?)
         ");
-        $stmt->execute([$ipAddress]);
-        $lastAttempt = $stmt->fetch();
+        $stmt->execute([$ipAddress, $windowStart]);
+        $result = $stmt->fetch();
 
-        if ($lastAttempt) {
-            $lastAttemptTime = $lastAttempt['attempt_timestamp'];
-            $blockEndTime = $lastAttemptTime + LOGIN_BLOCK_TIME;
-            $remainingTime = $blockEndTime - time();
+        $failedAttempts = $result ? $result['failed_attempts'] : 0;
 
-            if ($remainingTime > 0) {
-                return [
-                    'remaining' => $remainingTime,
-                    'end_time' => $blockEndTime
-                ];
+        // Check if the user should be blocked
+        if ($failedAttempts >= $maxAttempts) {
+            // Calculate when the block will end (last failed attempt + block time)
+            $stmt = $pdo->prepare("
+                SELECT UNIX_TIMESTAMP(attempt_time) as attempt_timestamp
+                FROM failed_login_attempts
+                WHERE ip_address = ?
+                ORDER BY attempt_time DESC
+                LIMIT 1
+            ");
+            $stmt->execute([$ipAddress]);
+            $lastAttempt = $stmt->fetch();
+
+            if ($lastAttempt) {
+                $lastAttemptTime = $lastAttempt['attempt_timestamp'];
+                $blockEndTime = $lastAttemptTime + LOGIN_BLOCK_TIME;
+                $remainingTime = $blockEndTime - time();
+
+                if ($remainingTime > 0) {
+                    return [
+                        'remaining' => $remainingTime,
+                        'end_time' => $blockEndTime
+                    ];
+                }
             }
         }
+    } catch (PDOException $e) {
+        // If the table doesn't exist, return null (no block)
+        // This will happen before the database is set up
+        return null;
     }
 
     return null;
@@ -117,19 +129,24 @@ function getRemainingBlockTime() {
 
 // Record failed login attempt
 function recordFailedLoginAttempt($pdo, $ipAddress, $username) {
-    $stmt = $pdo->prepare("
-        INSERT INTO failed_login_attempts (ip_address, username, attempt_time)
-        VALUES (?, ?, NOW())
-    ");
-    $stmt->execute([$ipAddress, $username]);
+    try {
+        $stmt = $pdo->prepare("
+            INSERT INTO failed_login_attempts (ip_address, username, attempt_time)
+            VALUES (?, ?, NOW())
+        ");
+        $stmt->execute([$ipAddress, $username]);
 
-    // Clean up old records outside the window period
-    $windowStart = time() - LOGIN_ATTEMPT_WINDOW; // From config
-    $cleanupStmt = $pdo->prepare("
-        DELETE FROM failed_login_attempts
-        WHERE attempt_time < FROM_UNIXTIME(?)
-    ");
-    $cleanupStmt->execute([$windowStart]);
+        // Clean up old records outside the window period
+        $windowStart = time() - LOGIN_ATTEMPT_WINDOW; // From config
+        $cleanupStmt = $pdo->prepare("
+            DELETE FROM failed_login_attempts
+            WHERE attempt_time < FROM_UNIXTIME(?)
+        ");
+        $cleanupStmt->execute([$windowStart]);
+    } catch (PDOException $e) {
+        // If the table doesn't exist, skip recording the attempt
+        // This will happen before the database is set up
+    }
 }
 
 $ipAddress = getClientIP();
@@ -207,12 +224,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Log activity
                     logActivity($user['id'], 'login', 'User logged in');
 
-                    // Clear failed login attempts for this IP and username
-                    $stmt = $pdo->prepare("
-                        DELETE FROM failed_login_attempts
-                        WHERE ip_address = ? AND username = ?
-                    ");
-                    $stmt->execute([$ipAddress, $username]);
+                    try {
+                        // Clear failed login attempts for this IP and username
+                        $stmt = $pdo->prepare("
+                            DELETE FROM failed_login_attempts
+                            WHERE ip_address = ? AND username = ?
+                        ");
+                        $stmt->execute([$ipAddress, $username]);
+                    } catch (PDOException $e) {
+                        // If the table doesn't exist, skip clearing attempts
+                        // This will happen before the database is set up
+                    }
 
                     // Clear CAPTCHA session
                     unset($_SESSION['captcha']);
@@ -298,11 +320,11 @@ $_SESSION['captcha'] = $answer;
         * { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-500 to-blue-700 min-h-screen flex items-center justify-center p-4">
+<body class="bg-gradient-to-br from-[#3291B6] to-[#1f6a8a] min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md">
         <div class="bg-white rounded-2xl shadow-2xl p-8">
             <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <div class="w-16 h-16 bg-gradient-to-br from-[#3291B6] to-[#2a7a99] rounded-xl flex items-center justify-center mx-auto mb-4">
                     <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
@@ -342,14 +364,14 @@ $_SESSION['captcha'] = $answer;
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Username atau Email</label>
                     <input type="text" name="username" required
-                           class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                           class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none transition"
                            placeholder="Masukkan username atau email">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
                     <input type="password" name="password" required
-                           class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                           class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none transition"
                            placeholder="Masukkan password">
                 </div>
 
@@ -360,22 +382,19 @@ $_SESSION['captcha'] = $answer;
                             <?php echo "$num1 $operation_symbol $num2 = ?"; ?>
                         </div>
                         <input type="text" name="captcha" required
-                               class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition flex-1 min-w-[150px]"
+                               class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none transition flex-1 min-w-[150px]"
                                placeholder="Jawaban">
                     </div>
                     <p class="mt-2 text-xs text-gray-500">Masukkan hasil dari perhitungan di atas</p>
                 </div>
 
                 <button type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors <?php echo $isBlocked ? 'opacity-50 cursor-not-allowed' : ''; ?>"
+                        class="w-full bg-[#3291B6] hover:bg-[#2a7a99] text-white font-semibold py-3 px-6 rounded-xl transition-colors <?php echo $isBlocked ? 'opacity-50 cursor-not-allowed' : ''; ?>"
                         <?php echo $isBlocked ? 'disabled' : ''; ?>>
                     Masuk
                 </button>
             </form>
 
-            <div class="mt-6 text-center text-sm text-gray-500">
-                <p>Demo Login: <strong>admin</strong> / <strong>admin123</strong></p>
-            </div>
         </div>
     </div>
 

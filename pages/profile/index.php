@@ -127,13 +127,13 @@ $currentUser = getCurrentUser();
                     </label>
                     <input type="text" name="first_name" required 
                            value="<?php echo htmlspecialchars($currentUser['first_name']); ?>"
-                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
+                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none transition">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Nama Belakang</label>
                     <input type="text" name="last_name" 
                            value="<?php echo htmlspecialchars($currentUser['last_name']); ?>"
-                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
+                           class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none transition">
                 </div>
             </div>
             
@@ -143,7 +143,7 @@ $currentUser = getCurrentUser();
                 </label>
                 <input type="email" name="email" required 
                        value="<?php echo htmlspecialchars($currentUser['email']); ?>"
-                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
+                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none transition">
             </div>
             
             <div>
@@ -151,11 +151,11 @@ $currentUser = getCurrentUser();
                 <input type="tel" name="phone" 
                        value="<?php echo htmlspecialchars($currentUser['phone']); ?>"
                        placeholder="+62 812-3456-7890"
-                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
+                       class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#3291B6] focus:border-transparent outline-none transition">
             </div>
             
             <div class="flex space-x-3 pt-4 border-t">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-xl transition-colors inline-flex items-center space-x-2">
+                <button type="submit" class="bg-[#3291B6] hover:bg-[#2a7a99] text-white font-medium py-2 px-6 rounded-xl transition-colors inline-flex items-center space-x-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
