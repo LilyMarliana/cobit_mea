@@ -7,7 +7,7 @@ require_once 'includes/db_connect.php';
 require_once 'includes/functions.php';
 
 $page = isset($_GET['page']) ? cleanInput($_GET['page']) : 'dashboard';
-$allowedPages = ['dashboard', 'profile', 'users', 'settings', 'roles', 'login', 'logout', 'assessment', 'results', 'history', 'contact'];
+$allowedPages = ['dashboard', 'profile', 'users', 'settings', 'roles', 'login', 'logout', 'assessment', 'results', 'history', 'contact', 'tentang_sistem', 'panduan_penggunaan', 'kebijakan_privasi'];
 $publicPages   = ['login','404']; // Halaman yang tidak butuh login
 
 // Validasi halaman
@@ -60,6 +60,15 @@ switch ($page) {
         break;
     case 'contact':
         require_once 'pages/contact/index.php';
+        break;
+    case 'tentang_sistem':
+        require_once 'pages/static/tentang_sistem.php';
+        break;
+    case 'panduan_penggunaan':
+        require_once 'pages/static/panduan_penggunaan.php';
+        break;
+    case 'kebijakan_privasi':
+        require_once 'pages/static/kebijakan_privasi.php';
         break;
     default:
         echo '<h1>404 - Page Not Found</h1>';

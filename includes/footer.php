@@ -12,14 +12,14 @@
                 </div>
                 <div>
                     <p class="text-sm font-semibold text-gray-800"><?php echo SITE_NAME; ?></p>
-                    <p class="text-xs text-gray-500">© <?php echo date('Y'); ?> All rights reserved</p>
+                    <p class="text-xs text-gray-500">© <?php echo date('Y'); ?> Lily. Seluruh hak cipta dilindungi</p>
                 </div>
             </div>
 
             <div class="flex items-center space-x-6">
-                <a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">Tentang</a>
-                <a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">Bantuan</a>
-                <a href="#" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">Privasi</a>
+                <a href="?page=tentang_sistem" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">Tentang Sistem</a>
+                <a href="?page=panduan_penggunaan" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">Panduan Pengguna</a>
+                <a href="?page=kebijakan_privasi" class="text-sm text-gray-600 hover:text-blue-600 transition-colors">Kebijakan Privasi</a>
             </div>
         </div>
     </div>
