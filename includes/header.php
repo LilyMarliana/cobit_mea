@@ -24,22 +24,29 @@ $alert = getAlert();
 </head>
 <body class="bg-gray-50">
     <!-- Top Navigation Bar -->
-    <nav class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
-        <div class="flex items-center justify-between px-6 py-4">
+    <nav class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50 h-24">
+        <div class="h-full px-6 flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-[#3291B6] to-[#2a7a99] rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <span class="text-xl font-bold text-gray-800"><?php echo SITE_NAME; ?></span>
-                </div>
+            <div class="flex items-center space-x-3">
+                <!-- Logo Wrapper -->
+        
+                    <img
+                        src="assets/images/logo-mea.svg"
+                        alt="Logo COBIT MEA"
+                        class="w-20 h-20 object-contain"
+                    >
+          
+
+                <!-- Nama Aplikasi -->
+                <span class="text-xl font-bold text-gray-800">
+                    <?php echo SITE_NAME; ?>
+                </span>
+            </div>
             </div>
             
             <div class="flex items-center space-x-4">
@@ -91,7 +98,7 @@ $alert = getAlert();
     </nav>
 
     <?php if ($alert): ?>
-    <div id="alert" class="fixed top-20 right-6 z-50 max-w-md animate-slide-in">
+    <div id="alert" class="fixed top-24 right-6 z-50 max-w-md animate-slide-in">
         <div class="bg-<?php echo $alert['type'] === 'success' ? 'green' : ($alert['type'] === 'error' ? 'red' : 'blue'); ?>-100 border border-<?php echo $alert['type'] === 'success' ? 'green' : ($alert['type'] === 'error' ? 'red' : 'blue'); ?>-400 text-<?php echo $alert['type'] === 'success' ? 'green' : ($alert['type'] === 'error' ? 'red' : 'blue'); ?>-700 px-4 py-3 rounded-xl shadow-lg">
             <div class="flex items-center justify-between">
                 <span class="text-sm"><?php echo htmlspecialchars($alert['message']); ?></span>

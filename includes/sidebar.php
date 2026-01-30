@@ -1,4 +1,4 @@
-<aside id="sidebar" class="fixed left-0 top-16 h-full bg-white shadow-lg w-64 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40 overflow-hidden">
+<aside id="sidebar" class="fixed left-0 top-24 h-full bg-white shadow-lg w-64 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40 overflow-hidden">
     <div class="h-full flex flex-col">
         <div class="flex-1 overflow-y-auto p-6">
             <div class="space-y-2">

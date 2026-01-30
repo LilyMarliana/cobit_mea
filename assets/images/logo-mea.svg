@@ -1,0 +1,89 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="297mm" height="210mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 29700 21000"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <font id="FontID1" horiz-adv-x="748" font-variant="normal" style="fill-rule:nonzero" font-style="normal,italic" font-weight="500">
+	<font-face 
+		font-family="LEMON MILK Medium">
+		<font-face-src>
+			<font-face-name name="LEMON MILK Medium Italic"/>
+		</font-face-src>
+	</font-face>
+   <missing-glyph><path d="M0 0z"/></missing-glyph>
+   <glyph unicode="A" horiz-adv-x="748" d="M516.834 0l164.999 0 -194.833 807 -25.8347 0 -507.999 -807 189.001 0 63.9986 110.168 286.667 0 24.0013 -110.168zm-231.501 244.834l129.333 221.667 48.3324 -221.667 -177.666 0z"/>
+   <glyph unicode="E" horiz-adv-x="572" d="M589.667 631.166l30.3332 155.668 -455.166 0 -152.835 -786.666 455.168 0 30.8328 156.667 -292.667 0 31.165 163.333 248.835 0 30.6655 157.666 -248.833 0 29.8337 153.332 292.667 0z"/>
+   <glyph unicode="M" horiz-adv-x="878" d="M890.834 807l-468.334 -516.834 -237.166 516.834 -17.6669 0 -156.667 -807 162.999 0 64.001 329.667 141.001 -316.501 0.999144 0 273.666 318.501 -64.3332 -331.667 163.001 0 156.667 807 -18.1665 0z"/>
+  </font>
+  <font id="FontID0" horiz-adv-x="643" font-variant="normal" style="fill-rule:nonzero" font-style="normal" font-weight="400">
+	<font-face 
+		font-family="Coolvetica">
+		<font-face-src>
+			<font-face-name name="Coolvetica Regular"/>
+		</font-face-src>
+	</font-face>
+   <missing-glyph><path d="M0 0z"/></missing-glyph>
+   <glyph unicode="5" horiz-adv-x="489" d="M162 260.999c17.999,37 45.9995,57.0007 92.9987,57.0007 61.0018,0 91.0017,-41.0011 91.0017,-110 0,-74.9997 -27.0008,-125 -99.0015,-125 -52,0 -85.9986,33.0013 -90.9993,88.0003l-129.999 0c4.99841,-113.999 99.9988,-194 220.998,-194 135.002,0 229,94.0007 229,237 0,133 -83.9992,208.999 -192,208.999 -48.9985,0 -96.9998,-9.99917 -131.998,-46.9992l5.99809 178 293.001 0 0 110 -408.999 0 -14.0003 -403.001 134 0z"/>
+   <glyph unicode="B" horiz-adv-x="573" d="M157 112.999l0 179 178 0c62.0015,0 100.001,-25.9988 100.001,-83.9992 0,-53.9993 -37.9997,-95.0004 -102.001,-95.0004l-176.001 0zm167.001 436c65.0005,0 91.999,-21.0004 91.999,-72.0007 0,-46.9992 -29.0002,-71.9983 -83.9992,-71.9983l-175.001 0 0 143.999 167.001 0zm-2.00172 -549c167.001,0 248.001,76.9991 248.001,198.001 0,95.0004 -44.9998,140 -101.001,160.998 46.0019,19.001 81.0002,67.0023 81.0002,124.001 0,111 -69.9989,181.001 -200,181.001l-327 0 0 -664.001 298.999 0z"/>
+   <glyph unicode="C" horiz-adv-x="613" d="M468.999 228.001c-18.9987,-82.9995 -68.9993,-130.001 -150.999,-130.001 -108.001,0 -162,87.0006 -162,234.001 0,144.999 53.9993,233.999 169,233.999 66.0002,0 125,-44.9998 143.999,-120l139.001 0c-13.0006,134 -118,240.001 -283.999,240.001 -190.001,0 -309.001,-137.001 -309.001,-362 0,-228.001 133,-347 306.999,-347 154,0 258,99.9988 286.001,251l-139.001 0z"/>
+   <glyph unicode="I" horiz-adv-x="186" d="M162 0l0 664.001 -139.001 0 0 -664.001 139.001 0z"/>
+   <glyph unicode="O" horiz-adv-x="669" d="M334 96.0001c-114.999,0 -181.999,69.9989 -181.999,227.001 0,157 64.9982,239.999 181.999,239.999 116.001,0 179.999,-82.9995 179.999,-239.999 0,-157.002 -79.9981,-227.001 -179.999,-227.001zm0 -119c204.001,0 317,118 317,346.001 0,227.998 -112.999,363 -317,363 -203.999,0 -319,-135.002 -319,-360.001 0,-223.999 115.001,-349 319,-349z"/>
+   <glyph unicode="T" horiz-adv-x="554" d="M342.999 0l0 548 201 0 0 116.001 -539.998 0 0 -116.001 200 0 0 -548 138.998 0z"/>
+  </font>
+  <style type="text/css">
+   <![CDATA[
+    @font-face { font-family:"LEMON MILK Medium";font-variant:normal;font-style:normal,italic;font-weight:500;src:url("#FontID1") format(svg)}
+    @font-face { font-family:"Coolvetica";font-variant:normal;font-style:normal;font-weight:normal;src:url("#FontID0") format(svg)}
+    .fil1 {fill:#395970}
+    .fil3 {fill:#395970}
+    .fil8 {fill:#3A5A71}
+    .fil0 {fill:#5B6B78}
+    .fil2 {fill:#9DACB3}
+    .fil7 {fill:white}
+    .fil5 {fill:url(#id0)}
+    .fil4 {fill:url(#id1)}
+    .fil6 {fill:url(#id2)}
+    .fnt0 {font-weight:normal;font-size:4241.35px;font-family:'Coolvetica'}
+    .fnt1 {font-style:italic;font-weight:500;font-size:4123.53px;font-family:'LEMON MILK Medium'}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="18740.52" y1="12503.17" x2="21285.4" y2="12529.65">
+   <stop offset="0" style="stop-opacity:1; stop-color:#395970"/>
+   <stop offset="0.341176" style="stop-opacity:1; stop-color:#AABECC"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#E6E6E6"/>
+  </linearGradient>
+  <linearGradient id="id1" gradientUnits="userSpaceOnUse" x1="3656.45" y1="11080.05" x2="5942.78" y2="11048.05">
+   <stop offset="0" style="stop-opacity:1; stop-color:#5B6B78"/>
+   <stop offset="0.521569" style="stop-opacity:1; stop-color:#9DACB3"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#BFCFD6"/>
+  </linearGradient>
+  <linearGradient id="id2" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="18740.52" y1="12503.17" x2="21285.4" y2="12529.65">
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2509977430368">
+   <g transform="matrix(0.818258 0 0 1 -2741.56 -97.7703)">
+    <text x="14850" y="10500"  class="fil0 fnt0">COBIT 5</text>
+   </g>
+   <text x="9448.19" y="14194.57"  class="fil1 fnt1">MEA</text>
+   <g>
+    <path class="fil2" d="M12627.65 4406.59c1638.9,-78.45 3164.79,527.06 4309.92,1570.17l-742.57 514.07c-956.74,-800.28 -2236.06,-1255.14 -3512.28,-1194.06 -701.99,33.6 -1320.43,76.11 -1873.74,238.45l-1353.86 0c893.12,-660.61 1980.85,-1071.59 3172.53,-1128.63z"/>
+    <polygon class="fil2" points="17066.68,6932.07 17046.78,6200.92 17027.07,5469.8 16271.81,5936.85 15516.52,6403.93 16291.52,6668 "/>
+   </g>
+   <path class="fil2" d="M12644.75 1323.39c3203.43,0 6013.44,1682.52 7595.74,4211.83l-3094.26 0c-1172.38,-1113.34 -2757.04,-1796.63 -4501.48,-1796.63 -1744.43,0 -3329.1,683.29 -4501.48,1796.63l-3094.25 0c1582.29,-2529.31 4392.31,-4211.83 7595.73,-4211.83zm7614.07 13666.48c-1578.89,2545.75 -4398.19,4241.46 -7614.07,4241.46 -3215.88,0 -6035.18,-1695.71 -7614.07,-4241.46l3081.57 0c1175.35,1130.84 2772.64,1826.26 4532.5,1826.26 1759.86,0 3357.15,-695.42 4532.51,-1826.26l3081.56 0z"/>
+   <path class="fil3" d="M20231.67 15412.67c-1578.89,2545.75 -4398.19,4241.46 -7614.07,4241.46 -3215.88,0 -6035.18,-1695.71 -7614.07,-4241.46l3081.56 0c1175.36,1130.84 2772.65,1826.26 4532.51,1826.26 1759.86,0 3357.15,-695.42 4532.51,-1826.26l3081.56 0z"/>
+   <path class="fil3" d="M8138.96 6636.37c0,0 -3394.15,3669.08 -1.07,7274.23l-2924.76 -10.39 0 -7275.12 2925.83 11.28z"/>
+   <path class="fil4" d="M3927.3 13900.21c-494.81,-1111.57 -770.26,-2342.33 -770.26,-3637.54 0,-1295.25 275.45,-2526.02 770.26,-3637.58l2749.6 0c-697.56,1040 -1104.66,2291.2 -1104.66,3637.58 0,1346.34 407.1,2597.54 1104.66,3637.54l-2749.6 0z"/>
+   <path class="fil2" d="M8764.65 15329.25l295.92 -380.02c0,0 3834.92,3057.32 7051.27,17.67 0,0 -2792.24,3587.48 -7347.19,362.35z"/>
+   <path class="fil2" d="M14587.69 16411.66c0,0 1002.93,-110.47 2381.37,-1457.95l-569.94 0c0,0 -128.11,817.34 -1811.43,1457.95z"/>
+   <polygon class="fil5" points="18167.23,11800.31 20051.36,11800.31 20668.86,12436.54 18784.73,12436.54 "/>
+   <polygon class="fil6" points="20668.87,12578.88 18784.73,12578.88 18167.24,13215.12 20051.37,13215.12 "/>
+   <rect class="fil7" transform="matrix(-0.114242 -0 -3.2601 3.33965 20316.7 12579)" width="912.82" height="190.51"/>
+   <rect class="fil7" transform="matrix(0.114242 -0 3.2601 3.33965 19593 11800.2)" width="912.82" height="190.51"/>
+   <rect class="fil8" x="17185.66" y="6095.93" width="3066.17" height="326.92"/>
+   <rect class="fil2" x="17185.69" y="6095.94" width="3066.17" height="163.44"/>
+  </g>
+ </g>
+</svg>

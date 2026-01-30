@@ -15,7 +15,7 @@ $stmt->execute([$_SESSION['user_id']]);
 $recentAssessments = $stmt->fetchAll();
 ?>
 
-<div class="mb-8">
+<div class="mb-8 mt-10">
     <h1 class="text-3xl font-bold text-gray-800 mb-2">Dashboard COBIT 5 MEA</h1>
     <p class="text-gray-600">Sistem Assessment Maturity Level COBIT 5 Domain Monitor, Evaluate, Assess</p>
 </div>
@@ -26,12 +26,9 @@ $recentAssessments = $stmt->fetchAll();
         <div>
             <h2 class="text-2xl font-bold mb-2">Selamat Datang, <?php echo htmlspecialchars($currentUser['first_name']); ?>!</h2>
             <p class="text-[#3291B6]/20 mb-4">Sistem ini dirancang untuk mengevaluasi tingkat kematangan praktik IT Anda berdasarkan framework COBIT 5 Domain MEA (Monitor, Evaluate, Assess).</p>
-           <a href="index.php?page=assessment"
-   class="inline-block bg-white text-[#3291B6] font-semibold px-6 py-3 rounded-xl
-          hover:bg-[#3291B6]/10 transition-colors
-          relative z-20">
-   Mulai Assessment
-</a>
+            <a href="index.php?page=assessment" class="inline-block bg-white text-[#3291B6] font-semibold px-6 py-3 rounded-xl hover:bg-white/70 [#3291B6]hover:text-white transition-all duration-200 relative z-10">
+                Mulai Assessment
+            </a>
         </div>
         <div class="text-5xl opacity-30">📊</div>
     </div>
