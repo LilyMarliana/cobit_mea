@@ -6,16 +6,16 @@
         <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
 <div class="flex items-center space-x-3">
     <!-- Logo Wrapper -->
-    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
+    <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-sm">
         <img
             src="assets/images/logo-mea.svg"
             alt="Logo COBIT MEA"
-            class="w-10 h-10 object-contain"
+            class="w-20 h-20 object-contain"
         >
     </div>
 
     <!-- Nama Aplikasi -->
-    <span class="text-xl font-bold text-gray-800">
+    <span class="text-xl font-bold text-gray-800 leading-none">
         <?php echo SITE_NAME; ?>
     </span>
 </div>
